@@ -5,16 +5,22 @@ import (
 )
 
 func twoSum(nums []int, target int) []int {
-	for i, x1 := range nums[:] {
-		for j, x2 := range nums[i+1:] {
-			j = j + i + 1
-			if x1+x2 == target {
-				return []int{i, j}
-			}
+	m := make(map[int]int)
+
+	for i, x := range nums {
+		if j, ok := m[x]; ok {
+			return []int{j,i}
 		}
+
+		diff := target - x
+		m[diff] = i
+		// (done on the upper if)
+		// once on next iteration found x == diff,
+		// return stored i and new i
+		// the sum of the two nums is target 
 	}
 
-	return []int{}
+	return []int{0,0}
 }
 
 func main() {
